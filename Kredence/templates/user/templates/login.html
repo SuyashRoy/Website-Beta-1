@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block body %}
+
+ <div class="content-section col-md-8 col-md-offset-2">
+  <form method="POST" style="border: 1px solid black; margin: 4%; padding:10%; border-radius:1%;">
+    {% csrf_token %}
+    <fieldset class="form-group">
+      {{ form }}
+    </fieldset>
+
+    <button style="font-size: 2rem; padding:1%; margin: auto;" class="btn btn-outline-dark" type="submit">login</button>
+  <br/>
+  <sub style="text-align: left;"><a href="{% url 'signup' %}" style="text-decoration: none; color: blue; padding:2%; cursor:pointer; margin-right:2%;">Don't have account? Sign Up</a></sub>
+  </form>
+ </div>
+
+{% endblock %}

@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse
@@ -6,6 +7,7 @@ from django.contrib.auth import login, authenticate
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib import messages
 
 from .forms import SignUpForm
 from django.shortcuts import render, redirect
@@ -68,3 +70,21 @@ def signup_view(request):
     else:
         form = SignUpForm()
     return render(request, 'user/templates/signup.html', {'form': form})
+
+
+def login_view(request):
+    if request.method == 'POST':
+
+        # AuthenticationForm_can_also_be_used__
+
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            form = login(request, user)
+            messages.success(request, f' welcome {username} !!')
+            return redirect('home')
+        else:
+            messages.info(request, f'account does not exist please sign up')
+    form = AuthenticationForm()
+    return render(request, 'user/templates/login.html', {'form': form, 'title': 'log in'})
