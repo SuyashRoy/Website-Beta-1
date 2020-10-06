@@ -15,12 +15,12 @@ class Discussion(models.Model):
     def __str__(self):
         return str(self.slug)
 
-@receiver(pre_save, sender=Discussion)
-def pre_save_discussion_reciever(sender, instance,*args, **kwargs):
-    if not instance.slug:
-        instance.slug = slugify(instance.user.username + '-' + instance.title)
-
-pre_save.connect(pre_save_discussion_reciever, sender=Discussion)
+# @receiver(pre_save, sender=Discussion)
+# def pre_save_discussion_reciever(sender, instance,*args, **kwargs):
+#     if not instance.slug:
+#         instance.slug = slugify(instance.user.username + '-' + instance.title)
+#
+# pre_save.connect(pre_save_discussion_reciever, sender=Discussion)
 
 
 """----------------------------------------------Answer Model--------------------------------------------------------"""
@@ -35,10 +35,10 @@ class Answer(models.Model):
     def __str__(self):
         return str(self.slug)
 
-
-@receiver(pre_save, sender=Answer)
-def pre_save_answer_reciever(sender, instance,*args, **kwargs):
-    if not instance.slug:
-        instance.slug = slugify(instance.user.username + '-answer-to-' + instance.discussion.title)
-
-pre_save.connect(pre_save_answer_reciever, sender=Answer)
+#
+# @receiver(pre_save, sender=Answer)
+# def pre_save_answer_reciever(sender, instance,*args, **kwargs):
+#     if not instance.slug:
+#         instance.slug = slugify(instance.user.username + '-answer-to-' + instance.discussion.title)
+#
+# pre_save.connect(pre_save_answer_reciever, sender=Answer)
